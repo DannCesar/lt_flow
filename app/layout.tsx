@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Ubuntu, Goudy_Bookletter_1911 } from "next/font/google";
 import "./globals.css";
+import {Header} from "./pages/Header";
+import Sidebar from "./components/Sidebar";
 
 const ubuntu = Ubuntu({
   variable: "--font-ubuntu",
@@ -29,6 +31,8 @@ export default function RootLayout({
       <body
         className={`${ubuntu.variable} ${goudy.variable} antialiased`}
       >
+        <Header/>
+        <Sidebar/>
         {children}
       </body>
     </html>
