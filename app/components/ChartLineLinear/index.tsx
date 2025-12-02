@@ -49,7 +49,7 @@ export function ChartLineLinear({
   text_footer,
 }: IChartLineLinear) {
   return (
-    <Card>
+    <Card >
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>

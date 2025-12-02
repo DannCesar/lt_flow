@@ -3,11 +3,19 @@
 @tailwind utilities;
 
 
+*{
+  margin: 0;
+  padding: 0
+}
 
+button{
+  cursor: pointer;
+}
 
 body {
   font-family: var(--font-ubuntu), sans-serif;
   background-color: #1A1724
+  
 }
 .goudy{
   font-family: var(--font-goudy),serif;
