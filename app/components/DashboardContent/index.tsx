@@ -13,12 +13,16 @@ export default function DashboardContent() {
       color: "#6268DF",
     },
   };
+  const cash_inflow = "13.075,00";
+  const money_outflow = "130,75";
+  const balance = "12.944,25";
+  
   const chartData = [
-    { month: "Junho", product_value: 1800000 },
-    { month: "Julho", product_value: 1112222222222223333333 },
-    { month: "Agosto", product_value: 777 },
-    { month: "Setembro", product_value: 1112222222222223333333 },
-    { month: "Outubro", product_value: 6565 },
+    { month: "Junho", product_value: 18000 },
+    { month: "Julho", product_value: 8020 },
+    { month: "Agosto", product_value: 16000 },
+    { month: "Setembro", product_value: 1122 },
+    { month: "Outubro", product_value: 17000 },
     { month: "Novembro", product_value: 5454 },
   ];
   return (
@@ -32,19 +36,19 @@ export default function DashboardContent() {
           <Card
             title="Entrada"
             icon={BanknoteArrowUpIcon}
-            value={`R$ 13.300,75`}
+            value={`R$  ${cash_inflow}`}
             width={50}
           />
           <Card
             title="Saída"
             icon={BanknoteArrowDownIcon}
-            value={`R$ 13.300,75`}
+            value={`R$ ${money_outflow}`}
             width={50}
           />
           <Card
             title="Saldo"
             icon={CircleDollarSignIcon}
-            value={`R$ 13.300,75`}
+            value={`R$ ${balance}`}
             width={50}
           />
         </div>
