@@ -14,12 +14,12 @@ import { MoreHorizontal } from "lucide-react";
 
 export type TransactionStatus = "Pago" | "Pendente";
 export type PaymentMethod =
-  | "Cartão de crédito"
-  | "Cartão de débito"
-  | "Dinheiro "
+  | "Cartão de Crédito"
+  | "Cartão de Débito"
+  | "Dinheiro"
   | "Pix";
 
-export interface Transaction {
+export interface ITransaction {
   id: number;
   cliente: string;
   data_transacao: string;
@@ -28,7 +28,7 @@ export interface Transaction {
   value: number;
 }
 
-export const transactionsColumns: ColumnDef<Transaction>[] = [
+export const transactionsColumns: ColumnDef<ITransaction>[] = [
   {
     accessorKey: "cliente",
     header: "Cliente",

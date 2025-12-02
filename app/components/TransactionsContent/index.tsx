@@ -1,49 +1,51 @@
+//@disable React Compiler
 "use no memo"
 "use client";
+
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import { DataTable } from "../DataTable";
-import { transactionsColumns, Transaction, TransactionStatus, PaymentMethod } from "../TransactionsColumns";
+import { ITransaction, transactionsColumns } from '../TransactionsColumns';
 
 export default function TransactionsContent() {
-  const mockTransactions: Transaction[] = [
+  const mockTransactions: ITransaction[] = [
     {
       id: 1,
       cliente: "Daniel Silva",
       data_transacao: "2025-12-02T15:48:22.077Z",
-      status: "Pago" as TransactionStatus,
-      metodo_pagamento: "Pix" as PaymentMethod,
+      status: "Pago" ,
+      metodo_pagamento: "Pix",
       value: 1200.75
     },
     {
       id: 2,
       cliente: "Ana Carolina",
       data_transacao: "2025-11-30T10:15:33.123Z",
-      status: "Pendente" as TransactionStatus,
-      metodo_pagamento: "Cartão de Crédito" as PaymentMethod,
+      status: "Pendente",
+      metodo_pagamento: "Cartão de Crédito" ,
       value: 899.90
     },
     {
       id: 3,
       cliente: "Roberto Santos",
       data_transacao: "2025-11-28T14:22:45.987Z",
-      status: "Pago" as TransactionStatus,
-      metodo_pagamento: "Cartão de Débito" as PaymentMethod,
+      status: "Pago",
+      metodo_pagamento: "Cartão de Débito",
       value: 2540.50
     },
     {
       id: 4,
       cliente: "Fernanda Lima",
       data_transacao: "2025-11-25T09:30:15.456Z",
-      status: "Pago" as TransactionStatus,
-      metodo_pagamento: "Pix" as PaymentMethod,
+      status: "Pago",
+      metodo_pagamento: "Pix" ,
       value: 650.00
     },
     {
       id: 5,
       cliente: "Carlos Eduardo",
       data_transacao: "2025-11-22T16:45:12.789Z",
-      status: "Pago" as TransactionStatus,
-      metodo_pagamento: "Dinheiro" as PaymentMethod,
+      status: "Pago",
+      metodo_pagamento: "Dinheiro",
       value: 3200.00
     },
   ];
