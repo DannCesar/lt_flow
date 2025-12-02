@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Goudy_Bookletter_1911, Ubuntu } from "next/font/google";
 import "./globals.css";
-import { Header } from "./pages/Header";
+import { Header } from "./components/Header";
+
 
 const ubuntu = Ubuntu({
   variable: "--font-ubuntu",
