@@ -1,62 +1,43 @@
 //@disable React Compiler
 "use client";
 
+import { TransactionsService } from "@/services/transactions.service";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
+import {
+  BanknoteArrowDownIcon,
+  BanknoteArrowUpIcon,
+  CircleAlertIcon,
+  CircleDollarSignIcon,
+  FilterIcon,
+} from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import ButtonComponent from "../Button";
+import Card from "../Card";
+import { transactionsColumns } from "../Columns/TransactionsColumns";
 import { DataTable } from "../DataTable";
-import { ITransaction, transactionsColumns } from "../TransactionsColumns";
-import { useMemo } from "react";
-const mockTransactions: ITransaction[] = [
-  {
-    id: 1,
-    cliente: "Daniel Silva",
-    data_transacao: "2025-12-02T15:48:22.077Z",
-    status: "Pago",
-    metodo_pagamento: "Pix",
-    value: 1200.75,
-  },
-  {
-    id: 2,
-    cliente: "Ana Carolina",
-    data_transacao: "2025-11-30T10:15:33.123Z",
-    status: "Pendente",
-    metodo_pagamento: "Cartão de Crédito",
-    value: 899.9,
-  },
-  {
-    id: 3,
-    cliente: "Roberto Santos",
-    data_transacao: "2025-11-28T14:22:45.987Z",
-    status: "Pago",
-    metodo_pagamento: "Cartão de Débito",
-    value: 2540.5,
-  },
-  {
-    id: 4,
-    cliente: "Fernanda Lima",
-    data_transacao: "2025-11-25T09:30:15.456Z",
-    status: "Pago",
-    metodo_pagamento: "Pix",
-    value: 650.0,
-  },
-  {
-    id: 5,
-    cliente: "Carlos Eduardo",
-    data_transacao: "2025-11-22T16:45:12.789Z",
-    status: "Pago",
-    metodo_pagamento: "Dinheiro",
-    value: 3200.0,
-  },
-];
+
+const service = new TransactionsService();
 
 export default function TransactionsContent() {
-  const memoizedMockTransactions = useMemo(() => mockTransactions, []);
+  const [transactions, setTransactions] = useState([]);
+  const memoizedTransactions = useMemo(() => transactions, [transactions]);
   const memoizedTransactionsColumns = useMemo(() => transactionsColumns, []);
 
+  useEffect(() => {
+    async function loadData() {
+      const response = await service.getAllTransactions();
+      setTransactions(response);
+    }
+    loadData();
+  }, []);
+  console.log(transactions, "data");
+
   const table = useReactTable({
-    data: memoizedMockTransactions,
+    data: memoizedTransactions,
     columns: memoizedTransactionsColumns,
     getCoreRowModel: getCoreRowModel(),
   });
+  
 
   return (
     <div className=" grid grid-cols-1 px-4 max-w-[1920px]  md:flex flex-col text-white">
@@ -66,7 +47,39 @@ export default function TransactionsContent() {
           Registro de todas as transações financeiras.
         </span>
       </div>
-      <div className="text-white overflow-y-auto w-full max-h-96 mt-10">
+      <div className="grid grid-cols-1 md:flex gap-10 mt-5">
+        <Card
+          title="Entrada"
+          icon={BanknoteArrowUpIcon}
+          value={`R$  `}
+          width={50}
+        />
+        <Card
+          title="Saída"
+          icon={BanknoteArrowDownIcon}
+          value={`R$ `}
+          width={50}
+        />
+        <Card
+          title="Saldo"
+          icon={CircleDollarSignIcon}
+          value={`R$ `}
+          width={50}
+        />
+        <Card
+          title="Pendente"
+          icon={CircleAlertIcon}
+          value={`R$ `}
+          width={50}
+        />
+      </div>
+      <div className="flex justify-between mt-5 ">
+        <ButtonComponent variant="primary" icon={FilterIcon}>
+          Filtrar
+        </ButtonComponent>
+        <ButtonComponent variant="primary">Registrar transação</ButtonComponent>
+      </div>
+      <div className="text-white overflow-y-auto w-full max-h-96 mt-5">
         <DataTable
           table={table}
           onClick={() => {}}

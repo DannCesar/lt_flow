@@ -41,6 +41,15 @@ export const transactionsColumns: ColumnDef<ITransaction>[] = [
   },
 
   {
+    accessorKey: "id",
+    header: "ID da transação",
+    cell: ({ row }) => {
+      const transactions_id = row.original.id;
+      
+      return <div className="min-w-32">{transactions_id}</div>;
+    },
+  },
+  {
     accessorKey: "data_transacao",
     header: "Data da transação",
     cell: ({ row }) => {
