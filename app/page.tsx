@@ -1,10 +1,11 @@
 import Dashboard from "./pages/Dashboard/page";
 
+
 export default function Home() {
   return (
-    <div >
+    <div>
       <main className="flex">
-        <Dashboard/>
+       <Dashboard/>
       </main>
     </div>
   );
