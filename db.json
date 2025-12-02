@@ -1,0 +1,164 @@
+{
+  "transactions": [
+    {
+      "id": 1,
+      "cliente": "Daniel",
+      "data_transacao": "2025-12-02T15:48:22.077Z",
+      "status": "Pago",
+      "metodo_pagamento": "Pix",
+      "value": 1200.75
+    },
+    {
+      "id": 2,
+      "cliente": "Ana Carolina",
+      "data_transacao": "2025-11-30T10:15:33.123Z",
+      "status": "Pendente",
+      "metodo_pagamento": "Cartão de Crédito",
+      "value": 899.90
+    },
+    {
+      "id": 3,
+      "cliente": "Roberto Santos",
+      "data_transacao": "2025-11-28T14:22:45.987Z",
+      "status": "Pago",
+      "metodo_pagamento": "Cartão de Débito",
+      "value": 2540.50
+    },
+    {
+      "id": 4,
+      "cliente": "Fernanda Lima",
+      "data_transacao": "2025-11-25T09:30:15.456Z",
+      "status": "Pago",
+      "metodo_pagamento": "Pix",
+      "value": 650.00
+    },
+    {
+      "id": 5,
+      "cliente": "Carlos Eduardo",
+      "data_transacao": "2025-11-22T16:45:12.789Z",
+      "status": "Pago",
+      "metodo_pagamento": "Dinheiro",
+      "value": 3200.00
+    },
+    {
+      "id": 6,
+      "cliente": "Juliana Almeida",
+      "data_transacao": "2025-11-20T11:20:30.111Z",
+      "status": "Pendente",
+      "metodo_pagamento": "Cartão de Crédito",
+      "value": 450.25
+    },
+    {
+      "id": 7,
+      "cliente": "Marcos Oliveira",
+      "data_transacao": "2025-11-18T08:45:22.333Z",
+      "status": "Pago",
+      "metodo_pagamento": "Pix",
+      "value": 1899.99
+    },
+    {
+      "id": 8,
+      "cliente": "Patrícia Costa",
+      "data_transacao": "2025-11-15T14:10:05.777Z",
+      "status": "Pendente",
+      "metodo_pagamento": "Cartão de Débito",
+      "value": 780.50
+    },
+    {
+      "id": 9,
+      "cliente": "Ricardo Mendes",
+      "data_transacao": "2025-11-12T17:30:44.222Z",
+      "status": "Pago",
+      "metodo_pagamento": "Dinheiro",
+      "value": 125.00
+    },
+    {
+      "id": 10,
+      "cliente": "Amanda Silva",
+      "data_transacao": "2025-11-10T13:25:18.888Z",
+      "status": "Pago",
+      "metodo_pagamento": "Cartão de Crédito",
+      "value": 3450.00
+    },
+    {
+      "id": 11,
+      "cliente": "Bruno Ferreira",
+      "data_transacao": "2025-11-08T09:15:27.666Z",
+      "status": "Pendente",
+      "metodo_pagamento": "Pix",
+      "value": 230.75
+    },
+    {
+      "id": 12,
+      "cliente": "Carla Ribeiro",
+      "data_transacao": "2025-11-05T15:40:33.444Z",
+      "status": "Pago",
+      "metodo_pagamento": "Cartão de Débito",
+      "value": 1680.30
+    },
+    {
+      "id": 13,
+      "cliente": "Diego Martins",
+      "data_transacao": "2025-11-03T12:05:55.999Z",
+      "status": "Pago",
+      "metodo_pagamento": "Dinheiro",
+      "value": 95.00
+    },
+    {
+      "id": 14,
+      "cliente": "Elaine Souza",
+      "data_transacao": "2025-11-01T10:50:11.555Z",
+      "status": "Pendente",
+      "metodo_pagamento": "Cartão de Crédito",
+      "value": 2100.00
+    },
+    {
+      "id": 15,
+      "cliente": "Fábio Nunes",
+      "data_transacao": "2025-10-29T16:20:40.777Z",
+      "status": "Pago",
+      "metodo_pagamento": "Pix",
+      "value": 430.60
+    },
+    {
+      "id": 16,
+      "cliente": "Gabriela Rocha",
+      "data_transacao": "2025-10-27T08:35:29.222Z",
+      "status": "Pago",
+      "metodo_pagamento": "Cartão de Débito",
+      "value": 1560.45
+    },
+    {
+      "id": 17,
+      "cliente": "Henrique Alves",
+      "data_transacao": "2025-10-25T14:55:48.333Z",
+      "status": "Pendente",
+      "metodo_pagamento": "Dinheiro",
+      "value": 275.00
+    },
+    {
+      "id": 18,
+      "cliente": "Isabela Monteiro",
+      "data_transacao": "2025-10-22T11:10:16.666Z",
+      "status": "Pago",
+      "metodo_pagamento": "Cartão de Crédito",
+      "value": 3899.00
+    },
+    {
+      "id": 19,
+      "cliente": "João Pedro",
+      "data_transacao": "2025-10-20T09:40:22.111Z",
+      "status": "Pago",
+      "metodo_pagamento": "Pix",
+      "value": 720.90
+    },
+    {
+      "id": 20,
+      "cliente": "Larissa Cardoso",
+      "data_transacao": "2025-10-18T17:25:37.888Z",
+      "status": "Pendente",
+      "metodo_pagamento": "Cartão de Débito",
+      "value": 1320.25
+    }
+  ]
+}
