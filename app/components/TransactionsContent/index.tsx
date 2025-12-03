@@ -2,6 +2,7 @@
 "use client";
 
 import { TransactionsService } from "@/services/transactions.service";
+import { formatMoney } from "@/utils/formatMoney";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import {
   BanknoteArrowDownIcon,
@@ -11,12 +12,11 @@ import {
   FilterIcon,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import ButtonComponent from "../Button";
 import Card from "../Card";
 import { transactionsColumns } from "../Columns/TransactionsColumns";
 import { DataTable } from "../DataTable";
+import DialogComponent from "../DialogComponent";
 import PopoverComponent from "../Popover";
-import { formatMoney } from "@/utils/formatMoney";
 
 const service = new TransactionsService();
 
@@ -123,7 +123,7 @@ export default function TransactionsContent() {
           </div>
         </PopoverComponent>
 
-        <ButtonComponent variant="primary">Registrar transação</ButtonComponent>
+        <DialogComponent dialog="Registrar transação"/>
       </div>
       <div className="text-white overflow-y-auto w-full max-h-96 mt-5">
         <DataTable
