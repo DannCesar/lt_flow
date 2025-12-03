@@ -5,25 +5,39 @@ import { LucideIcon } from "lucide-react";
 interface IInputComponent {
   label: string;
   icon?: LucideIcon;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  name?: string;
+  placeholder?: string;
+  type?: string;
 }
 
 export default function InputComponent({
   label,
   icon: Icon,
-  ...props
+  value,
+  onChange,
+  name,
+  placeholder,
+  type = "text",
 }: IInputComponent) {
   return (
-    <div className="text-white w-auto">
-      <Label>{label}</Label>
+    <div className="flex flex-col gap-2 ">
+      <Label htmlFor={name}>{label}</Label>
 
-      <div className="relative mt-2">
+      <div className="relative">
         {Icon && (
-          <Icon className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
+          <Icon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
         )}
 
         <Input
-          {...props}
-          className={`h-7 bg-[#1A1724] border-[#2B2C42] ${Icon ? "pl-9" : ""}`}
+          id={name}
+          name={name}
+          type={type}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          className="h-8 bg-[#1A1724] border-[#2B2C42] "
         />
       </div>
     </div>

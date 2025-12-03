@@ -15,34 +15,41 @@ interface IOption {
 }
 
 interface ISelectComponent {
-  placeholder: string;
+  placeholder?: string;
   label: string;
+  value?: string;
+  onValueChange?: (value: string) => void;
   options: Array<IOption>;
 }
 
 export default function SelectComponent({
   placeholder,
   label,
+  value,
+  onValueChange,
   options,
 }: ISelectComponent) {
   return (
-  <div>
-    <Label className="">{label}</Label>
-      <Select>
-      <SelectTrigger className="h-8 bg-[#1A1724] border-[#2B2C42] text-white">
-        <SelectValue placeholder={placeholder} />
-      </SelectTrigger>
+    <div className="flex flex-col gap-2">
+      <Label>{label}</Label>
 
-      <SelectContent className="bg-[#1A1724] border-[#2B2C42] text-white hover:bg-green-300">
-        <SelectGroup>
+      <Select value={value} onValueChange={onValueChange}>
+        <SelectTrigger className="w-full h-8 bg-[#1A1724] border-[#2B2C42]">
+          {
+            placeholder ? (
+              <SelectValue placeholder={placeholder} />
+            ): <SelectValue placeholder={"Selecione..."}/>
+          }
+        </SelectTrigger>
+
+        <SelectContent>
           {options.map((opt) => (
             <SelectItem key={opt.value} value={opt.value}>
               {opt.label}
             </SelectItem>
           ))}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
-  </div>
+        </SelectContent>
+      </Select>
+    </div>
   );
 }
