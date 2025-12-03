@@ -1,4 +1,4 @@
-import InputComponent from "../InputComponent";
+import InputComponent from "../Shadcn/InputComponent";
 import SelectComponent from "../Shadcn/SelectComponent";
 
 
