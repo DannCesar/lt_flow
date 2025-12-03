@@ -12,12 +12,13 @@ import {
   FilterIcon,
 } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import Card from "../Card";
 import { transactionsColumns } from "../Columns/TransactionsColumns";
-import { DataTable } from "../DataTable";
-import DialogComponent from "../DialogComponent";
-import PopoverComponent from "../Popover";
+import Card from "../Shadcn/Card";
+
 import RegisterForm from "../RegisterFrom";
+import { DataTable } from "../Shadcn/DataTable";
+import DialogModal from "../Shadcn/DialogModal";
+import PopoverComponent from "../Shadcn/Popover";
 
 const service = new TransactionsService();
 
@@ -124,7 +125,7 @@ export default function TransactionsContent() {
           </div>
         </PopoverComponent>
 
-        <DialogComponent
+        <DialogModal
           dialog="Registrar transação"
           title="Registrar transação"
           description="Preencha os campos para registrar uma nova transação."
@@ -132,7 +133,7 @@ export default function TransactionsContent() {
           submit_text="Registrar"
         >
           <RegisterForm />
-        </DialogComponent>
+        </DialogModal>
       </div>
       <div className="text-white overflow-y-auto md:w-full max-h-96 mt-5">
         <DataTable

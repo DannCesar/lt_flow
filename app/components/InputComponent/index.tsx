@@ -1,6 +1,7 @@
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+
 import { LucideIcon } from "lucide-react";
+import { Label } from "../Shadcn/ui/label";
+import { Input } from "../Shadcn/ui/input";
 
 interface IInputComponent {
   label: string;

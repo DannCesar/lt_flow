@@ -7,7 +7,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "../ui/table";
 import { PaginationComponent } from "../Pagination";
 import EmptyComponent from "../Empty";
 

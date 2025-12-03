@@ -1,4 +1,4 @@
-import { Button, ButtonProps } from "@/components/ui/button";
+import { Button, ButtonProps } from "../ui/button";
 import { LucideIcon } from "lucide-react";
 
 interface IButtonComponent extends ButtonProps {

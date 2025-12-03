@@ -1,5 +1,6 @@
 import InputComponent from "../InputComponent";
-import SelectComponent from "../SelectComponent";
+import SelectComponent from "../Shadcn/SelectComponent";
+
 
 export default function RegisterForm() {
   const payment_status = [

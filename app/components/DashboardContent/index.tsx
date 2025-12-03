@@ -3,8 +3,9 @@ import {
   BanknoteArrowUpIcon,
   CircleDollarSignIcon,
 } from "lucide-react";
-import Card from "../Card";
-import { ChartLineLinear } from "../ChartLineLinear";
+import Card from "../Shadcn/Card";
+import { ChartLineLinear } from "../Shadcn/ChartLineLinear";
+
 
 export default function DashboardContent() {
   const chartConfig = {

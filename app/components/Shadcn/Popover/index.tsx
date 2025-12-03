@@ -2,10 +2,11 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
+} from "../ui/popover";
 import { LucideIcon } from "lucide-react";
-import ButtonComponent from "../Button";
+
 import React, { useRef } from "react";
+import ButtonComponent from "../Button";
 
 interface IPopoverComponent {
   children: React.ReactNode;

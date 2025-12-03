@@ -1,13 +1,12 @@
-import { Dialog, DialogFooter, DialogHeader } from "@/components/ui/dialog";
-import {
-  DialogClose,
+import { Dialog, DialogFooter, DialogHeader, DialogClose,
   DialogContent,
   DialogDescription,
   DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import ButtonComponent from "../Button";
+  DialogTrigger, } from "../ui/dialog";
+
+
 import { ReactNode } from "react";
+import ButtonComponent from "../Button";
 
 interface IDialogComponent {
   children: ReactNode;
@@ -19,7 +18,7 @@ interface IDialogComponent {
   submit_text: string;
 }
 
-export default function DialogComponent({
+export default function DialogModal({
   onSubmit,
   children,
   dialog,
