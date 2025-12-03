@@ -17,6 +17,7 @@ import { transactionsColumns } from "../Columns/TransactionsColumns";
 import { DataTable } from "../DataTable";
 import DialogComponent from "../DialogComponent";
 import PopoverComponent from "../Popover";
+import RegisterForm from "../RegisterFrom";
 
 const service = new TransactionsService();
 
@@ -123,9 +124,17 @@ export default function TransactionsContent() {
           </div>
         </PopoverComponent>
 
-        <DialogComponent dialog="Registrar transação"/>
+        <DialogComponent
+          dialog="Registrar transação"
+          title="Registrar transação"
+          description="Preencha os campos para registrar uma nova transação."
+          cancel_text="Cancelar"
+          submit_text="Registrar"
+        >
+          <RegisterForm />
+        </DialogComponent>
       </div>
-      <div className="text-white overflow-y-auto w-full max-h-96 mt-5">
+      <div className="text-white overflow-y-auto md:w-full max-h-96 mt-5">
         <DataTable
           table={table}
           onClick={() => {}}

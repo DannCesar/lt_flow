@@ -32,19 +32,32 @@ export default function DialogComponent({
     <Dialog>
       <form onSubmit={onSubmit}>
         <DialogTrigger asChild>
-          <ButtonComponent variant="outline">{dialog}</ButtonComponent>
+          <ButtonComponent
+            className="border-[#2B2C42] bg-[#262332] hover:bg-[#2B2C42]"
+            variant="outline"
+          >
+            {dialog}
+          </ButtonComponent>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className=" max-w-[340px] md:max-w-[500px] text-white bg-[#262332] border-[#2B2C42] rounded-lg">
           <DialogHeader>
-            <DialogTitle>{title}</DialogTitle>
-            <DialogDescription>{description}</DialogDescription>
+            <DialogTitle className="text-start">{title}</DialogTitle>
+            <DialogDescription className="text-start text-white">
+              {description}
+            </DialogDescription>
           </DialogHeader>
           {children}
-          <DialogFooter>
+          <DialogFooter className="gap-4 md:gap-2">
             <DialogClose asChild>
-              <ButtonComponent variant="outline">{cancel_text}</ButtonComponent>
+              <ButtonComponent>{cancel_text}</ButtonComponent>
             </DialogClose>
-            <ButtonComponent type="submit">{submit_text}</ButtonComponent>
+            <ButtonComponent
+              className="text-[#262332]"
+              variant="outline"
+              type="submit"
+            >
+              {submit_text}
+            </ButtonComponent>
           </DialogFooter>
         </DialogContent>
       </form>
