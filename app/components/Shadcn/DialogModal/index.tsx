@@ -1,9 +1,13 @@
-import { Dialog, DialogFooter, DialogHeader, DialogClose,
+import {
+  Dialog,
+  DialogFooter,
+  DialogHeader,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogTitle,
-  DialogTrigger, } from "../ui/dialog";
-
+  DialogTrigger,
+} from "../ui/dialog";
 
 import { ReactNode } from "react";
 import ButtonComponent from "../Button";
