@@ -20,6 +20,7 @@ import { DataTable } from "../Shadcn/DataTable";
 import DialogModal from "../Shadcn/DialogModal";
 import PopoverComponent from "../Shadcn/Popover";
 import { toast } from "sonner";
+import TransactionDetailsModal from "../Shadcn/TransactionDetailsModal";
 
 const service = new TransactionsService();
 
@@ -28,31 +29,36 @@ type filterTransacitions = "Pago" | "Pendente" | "Todos";
 export default function TransactionsContent() {
   const [statusFilter, setStatusFilter] =
     useState<filterTransacitions>("Todos");
-  const query_client = useQueryClient()
-  const { registerForm, submit } = useRegisterForm({onSuccess: () => setModalOpen(false)});
-  const [modalOpen,setModalOpen] = useState(false)
+  const query_client = useQueryClient();
+  const { registerForm, submit } = useRegisterForm({
+    onSuccess: () => setModalOpen(false),
+  });
+  const [modalOpen, setModalOpen] = useState(false);
+  const [detailsModal, setDetailsModal] = useState(false);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
 
   const { data: transactions = [], isLoading } = useQuery({
     queryKey: ["transactions"],
     queryFn: () => service.getAllTransactions(),
   });
 
-
   async function handleDeleteTransaction(id: number | string) {
     try {
       await service.deleteTransaction(id);
-      query_client.invalidateQueries({queryKey: ['transactions']})
-      toast.success("Transação excluída com sucesso!")
+      query_client.invalidateQueries({ queryKey: ["transactions"] });
+      toast.success("Transação excluída com sucesso!");
     } catch (error) {
-      alert("Erro ao excluir transação,tente novamente,se persistir,constate o suporte.");
+      alert(
+        "Erro ao excluir transação,tente novamente,se persistir,constate o suporte."
+      );
     }
   }
-  
+
   const memoizedTransactionsColumns = useMemo(
     () => transactionsColumns(handleDeleteTransaction),
     []
   );
-  
+
   const total_entry = useMemo(() => {
     return transactions
       .filter((transaction: any) => transaction.status === "Pago")
@@ -64,7 +70,7 @@ export default function TransactionsContent() {
       .filter((transaction: any) => transaction.status === "Pendente")
       .reduce((acc: number, transaction: any) => acc + transaction.valor, 0);
   }, [transactions]);
-  
+
   const money_out = 0;
   const balance = total_entry - money_out;
 
@@ -89,11 +95,10 @@ export default function TransactionsContent() {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  
   if (isLoading) {
     return <div className="text-white">Carregando...</div>;
   }
-
+  console.log(selectedTransaction);
   return (
     <div className=" grid grid-cols-1 px-4 max-w-[1920px]  md:flex flex-col text-white">
       <div>
@@ -161,7 +166,10 @@ export default function TransactionsContent() {
           cancel_text="Cancelar"
           submit_text="Registrar"
           onSubmit={registerForm.handleSubmit(submit)}
-          onCancel={() => {registerForm.reset(); setModalOpen(false)}}
+          onCancel={() => {
+            registerForm.reset();
+            setModalOpen(false);
+          }}
           open={modalOpen}
           onOpenChange={setModalOpen}
         >
@@ -171,12 +179,26 @@ export default function TransactionsContent() {
       <div className="text-white overflow-y-auto md:w-full max-h-96 mt-5">
         <DataTable
           table={table}
-          onClick={() => {}}
+          onClick={(transaction) => {
+            console.log("Transação clicada:", transaction);
+            setSelectedTransaction(transaction);
+            setDetailsModal(true);
+          }}
           currentPage={1}
-          totalPages={5}
+          totalPages={3}
           onPageChange={() => {}}
         />
       </div>
+      {detailsModal && (
+        <TransactionDetailsModal
+          title="Detalhes da transação"
+          description="Transação"
+          cancel_text="Fechar"
+          open={detailsModal}
+          onOpenChange={setDetailsModal}
+          transaction={selectedTransaction}
+        />
+      )}
     </div>
   );
 }
