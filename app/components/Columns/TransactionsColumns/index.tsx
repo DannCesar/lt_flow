@@ -87,7 +87,6 @@ export const transactionsColumns = (onDelete?:(id:number) => void) : ColumnDef<I
     header: () => <div className="text-right">Valor</div>,
     cell: ({ row }) => {
       const transaction_value = row.original.valor ? row.original.valor : "Não informado" ;
-      console.log(transaction_value)
       const formatted_value = transaction_value.toLocaleString("pt-BR", {
         style: "currency",
         currency: "BRL",
@@ -111,13 +110,7 @@ export const transactionsColumns = (onDelete?:(id:number) => void) : ColumnDef<I
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Ações</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() =>
-                navigator.clipboard.writeText(String(transaction.id))
-              }
-            >
-              Copiar ID
-            </DropdownMenuItem>
+        
             <DropdownMenuSeparator />
             <DropdownMenuItem>Ver detalhes</DropdownMenuItem>
             <DropdownMenuItem>Editar</DropdownMenuItem>

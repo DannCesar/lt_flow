@@ -15,6 +15,7 @@ import ButtonComponent from "../Button";
 interface IDialogComponent {
   children: ReactNode;
   onSubmit?: () => void;
+  onCancel?: () => void;
   dialog: string;
   title: string;
   description: string;
@@ -28,6 +29,9 @@ export default function DialogModal({
   description,
   children,
   cancel_text,
+  submit_text,
+  onCancel,
+  onSubmit,
 }: IDialogComponent) {
   return (
     <Dialog>
@@ -50,11 +54,13 @@ export default function DialogModal({
 
         <DialogFooter>
           <DialogClose asChild>
-            <ButtonComponent>{cancel_text}</ButtonComponent>
+            <ButtonComponent onClick={onCancel}>{cancel_text}</ButtonComponent>
           </DialogClose>
+          <ButtonComponent type="submit" onClick={onSubmit}>
+            {submit_text}
+          </ButtonComponent>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
-

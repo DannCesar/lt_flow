@@ -1,12 +1,9 @@
-import { useRegisterForm } from "@/app/hooks/useRegisterForm";
 
 import { FormInput } from "../Shadcn/FormInput";
 import { FormSelect } from "../Shadcn/FormSelect";
 import { Form } from "../Shadcn/ui/form";
-import ButtonComponent from "../Shadcn/Button";
 
-export default function RegisterTransactionForm() {
-  const { registerForm, submit, loading } = useRegisterForm();
+export default function RegisterTransactionForm({registerForm}:any) {
   const payment_status = [
     {
       label: "Pago",
@@ -38,7 +35,6 @@ export default function RegisterTransactionForm() {
   return (
     <Form {...registerForm}>
       <form
-      onSubmit={registerForm.handleSubmit(submit)}
       className="grid md:grid-cols-2 gap-4"
     >
      <FormInput
@@ -65,7 +61,6 @@ export default function RegisterTransactionForm() {
     label="Valor"
     placeholder="Digite o valor da transação..."
     />
-    <ButtonComponent type="submit">Registrar</ButtonComponent>
     </form>
     </Form>
   );

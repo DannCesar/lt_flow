@@ -29,8 +29,7 @@ export default function TransactionsContent() {
   const [statusFilter, setStatusFilter] =
     useState<filterTransacitions>("Todos");
 
-  
-  const { submit } = useRegisterForm();
+  const { registerForm, submit, loading } = useRegisterForm();
 
   useEffect(() => {
     async function loadData() {
@@ -39,17 +38,21 @@ export default function TransactionsContent() {
     }
     loadData();
   }, []);
-    async function handleDeleteTransaction(id:number | string){
-   
+  async function handleDeleteTransaction(id: number | string) {
     try {
-      await service.deleteTransaction(id)
-      setTransactions(transactions.filter(transaction => transaction.id !== id))
-      alert("Transação excluida com sucesso")
+      await service.deleteTransaction(id);
+      setTransactions(
+        transactions.filter((transaction) => transaction.id !== id)
+      );
+      alert("Transação excluida com sucesso");
     } catch (error) {
-      alert("Erro ao excluir transação.")
+      alert("Erro ao excluir transação.");
     }
   }
-   const memoizedTransactionsColumns = useMemo(() => transactionsColumns(handleDeleteTransaction), []);
+  const memoizedTransactionsColumns = useMemo(
+    () => transactionsColumns(handleDeleteTransaction),
+    []
+  );
   const total_entry = useMemo(() => {
     return transactions
       .filter((transaction: any) => transaction.status === "Pago")
@@ -85,7 +88,6 @@ export default function TransactionsContent() {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  console.log(total_entry);
   return (
     <div className=" grid grid-cols-1 px-4 max-w-[1920px]  md:flex flex-col text-white">
       <div>
@@ -152,9 +154,10 @@ export default function TransactionsContent() {
           description="Preencha os campos para registrar uma nova transação."
           cancel_text="Cancelar"
           submit_text="Registrar"
-          onSubmit={submit}
+          onSubmit={registerForm.handleSubmit(submit)}
+          onCancel={() => registerForm.reset()}
         >
-          <RegisterTransactionForm />
+          <RegisterTransactionForm registerForm={registerForm} />
         </DialogModal>
       </div>
       <div className="text-white overflow-y-auto md:w-full max-h-96 mt-5">
