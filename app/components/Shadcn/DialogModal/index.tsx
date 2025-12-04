@@ -56,7 +56,7 @@ export default function DialogModal({
 
         {children}
 
-        <DialogFooter className="gap-3">
+        <DialogFooter className="gap-3 mt-2">
           <DialogClose asChild>
             <ButtonComponent  type="button" variant="default" onClick={() => {
               onCancel;
