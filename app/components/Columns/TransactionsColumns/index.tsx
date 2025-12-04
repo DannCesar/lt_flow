@@ -8,9 +8,16 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../../Shadcn/ui/dropdown-menu"
+} from "../../Shadcn/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
+import { useState } from "react";
+import DialogModal from "../../Shadcn/DialogModal";
+
+import { useEditForm } from "@/app/hooks/useEditForm";
+import { useQueryClient } from "@tanstack/react-query";
+
+import EditTransactionForm from "../../EditTransactionForm";
 
 export type TransactionStatus = "Pago" | "Pendente";
 export type PaymentMethod =
@@ -20,32 +27,100 @@ export type PaymentMethod =
   | "Pix";
 
 export interface ITransaction {
-  id: number;
+  id: string;
   cliente: string;
   data_transacao: string;
   status: TransactionStatus;
   metodo_pagamento: PaymentMethod;
-  valor : number;
+  valor: number;
 }
 
-export const transactionsColumns = (onDelete?:(id:number) => void) : ColumnDef<ITransaction>[] => [
+function ActionsCell({ transaction, onDelete }: { 
+  transaction: ITransaction; 
+  onDelete?: (id: string) => void;
+}) {
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const queryClient = useQueryClient();
+
+  const { editForm, submit: submitEdit, loading: editLoading } = useEditForm({
+    onSuccess: () => {
+      setEditModalOpen(false);
+      queryClient.invalidateQueries({ queryKey: ["transactions"] });
+    },
+  });
+
+  const handleEditClick = () => {
+    editForm.reset({
+      cliente: transaction.cliente,
+      status: transaction.status,
+      metodo_pagamento: transaction.metodo_pagamento,
+      valor: transaction.valor.toString(),
+    });
+    setEditModalOpen(true);
+  };
+
+  return (
+    <>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="h-8 w-8 p-0">
+            <MoreHorizontal className="h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>Ações</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem>Ver detalhes</DropdownMenuItem>
+          <DropdownMenuItem onClick={handleEditClick}>
+            Editar
+          </DropdownMenuItem>
+          <DropdownMenuItem 
+            className="text-red-500" 
+            onClick={() => onDelete && onDelete(transaction.id)}
+          >
+            Excluir
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <DialogModal  
+        dialog=""
+        title="Editar transação"
+        description="Edite os campos da transação selecionada."
+        cancel_text="Cancelar"
+        submit_text={editLoading ? "Atualizando..." : "Atualizar"}
+        onSubmit={editForm.handleSubmit((data) => 
+          submitEdit(data, transaction.id)
+        )}
+        onCancel={() => {
+          editForm.reset();
+          setEditModalOpen(false);
+        }}
+        open={editModalOpen}
+        onOpenChange={setEditModalOpen}
+      >
+        <EditTransactionForm editForm={editForm} />
+      </DialogModal>
+    </>
+  );
+}
+
+export const transactionsColumns = (onDelete?: (id: string) => void): ColumnDef<ITransaction>[] => [
   {
     accessorKey: "cliente",
     header: "Cliente",
     cell: ({ row }) => {
       const client_name = row.original.cliente;
       return (
-        <div className=" min-w-32 flex items-center gap-2">{client_name}</div>
+        <div className="min-w-32 flex items-center gap-2">{client_name}</div>
       );
     },
   },
-
   {
     accessorKey: "id",
     header: "ID da transação",
     cell: ({ row }) => {
       const transactions_id = row.original.id;
-      
       return <div className="min-w-32">{transactions_id}</div>;
     },
   },
@@ -58,13 +133,11 @@ export const transactionsColumns = (onDelete?:(id:number) => void) : ColumnDef<I
       return <div className="min-w-36">{formatedDate}</div>;
     },
   },
-
   {
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => {
       const status = row.original.status;
-
       return (
         <div className="min-w-20">
           <span>{status}</span>
@@ -72,7 +145,6 @@ export const transactionsColumns = (onDelete?:(id:number) => void) : ColumnDef<I
       );
     },
   },
-
   {
     accessorKey: "metodo_pagamento",
     header: "Método de pagamento",
@@ -81,45 +153,23 @@ export const transactionsColumns = (onDelete?:(id:number) => void) : ColumnDef<I
       return <div className="min-w-40">{payment_method}</div>;
     },
   },
-
   {
     accessorKey: "valor",
     header: () => <div className="text-right">Valor</div>,
     cell: ({ row }) => {
-      const transaction_value = row.original.valor ? row.original.valor : "Não informado" ;
+      const transaction_value = row.original.valor;
       const formatted_value = transaction_value.toLocaleString("pt-BR", {
         style: "currency",
         currency: "BRL",
       });
-
       return <div className="text-right font-medium">{formatted_value}</div>;
     },
   },
-
   {
     id: "actions",
     cell: ({ row }) => {
       const transaction = row.original;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Ações</DropdownMenuLabel>
-        
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Ver detalhes</DropdownMenuItem>
-            <DropdownMenuItem>Editar</DropdownMenuItem>
-            <DropdownMenuItem className="text-red-500" onClick={()=>onDelete && onDelete(row.original.id)}>
-              Excluir
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
+      return <ActionsCell transaction={transaction} onDelete={onDelete} />;
     },
   },
 ];
