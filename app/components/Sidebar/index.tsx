@@ -3,9 +3,12 @@ import { PanelLeft, ListIcon, LogOutIcon, Menu, X } from "lucide-react";
 import Link from "next/link";
 import ButtonComponent from "../Shadcn/Button";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 
 export default function Sidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const router = useRouter()
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -14,6 +17,13 @@ export default function Sidebar() {
   const closeSidebar = () => {
     setIsSidebarOpen(false);
   };
+
+  const handleLogout = () => {
+  document.cookie = "token=; path=/; max-age=0";
+  router.push("/login");
+  closeSidebar();
+};
+
 
   return (
     <>
@@ -69,7 +79,8 @@ export default function Sidebar() {
         </Link>
         
         <div className="mt-auto pt-8 md:pt-0 md:mt-96">
-          <ButtonComponent
+          <ButtonComponent 
+          onClick={handleLogout}
             className="w-full border-none rounded-lg flex justify-start items-center shadow-none bg-[#1A1724] hover:bg-[#2B2C42] gap-5 cursor-pointer py-4 px-5 text-lg md:text-base md:py-0 md:px-0 md:rounded-sm"
           >
             <LogOutIcon width={24} height={24} className="md:w-5 md:h-5" />

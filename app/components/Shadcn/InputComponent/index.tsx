@@ -22,10 +22,12 @@ export default function InputComponent({
   return (
     <div className="flex flex-col gap-2 ">
       <div className="relative">
-        {Icon && (
-          <Icon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />
-        )}
-
+       {Icon && (
+        <Icon
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500"
+          size={18}
+        />
+      )}
         <Input
           id={name}
           name={name}
