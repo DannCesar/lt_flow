@@ -1,7 +1,9 @@
-//@disable React Compiler
 "use client";
 
+import { useRegisterForm } from "@/app/hooks/useRegisterForm";
+import { TransactionsService } from "@/services/transactions.service";
 import { formatMoney } from "@/utils/formatMoney";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import {
   BanknoteArrowDownIcon,
@@ -10,12 +12,10 @@ import {
   CircleDollarSignIcon,
   FilterIcon,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { transactionsColumns } from "../Columns/TransactionsColumns";
-import Card from "../Shadcn/Card";
-import { useRegisterForm } from "@/app/hooks/useRegisterForm";
-import { TransactionsService } from "@/services/transactions.service";
 import RegisterTransactionForm from "../RegisterTransactionForm";
+import Card from "../Shadcn/Card";
 import { DataTable } from "../Shadcn/DataTable";
 import DialogModal from "../Shadcn/DialogModal";
 import PopoverComponent from "../Shadcn/Popover";
@@ -25,34 +25,31 @@ const service = new TransactionsService();
 type filterTransacitions = "Pago" | "Pendente" | "Todos";
 
 export default function TransactionsContent() {
-  const [transactions, setTransactions] = useState([]);
   const [statusFilter, setStatusFilter] =
     useState<filterTransacitions>("Todos");
+  const query_client = useQueryClient()
+  const { registerForm, submit } = useRegisterForm();
 
-  const { registerForm, submit, loading } = useRegisterForm();
+  const { data: transactions = [], isLoading } = useQuery({
+    queryKey: ["transactions"],
+    queryFn: () => service.getAllTransactions(),
+  });
 
-  useEffect(() => {
-    async function loadData() {
-      const response = await service.getAllTransactions();
-      setTransactions(response);
-    }
-    loadData();
-  }, []);
+
   async function handleDeleteTransaction(id: number | string) {
     try {
       await service.deleteTransaction(id);
-      setTransactions(
-        transactions.filter((transaction) => transaction.id !== id)
-      );
-      alert("Transação excluida com sucesso");
+      query_client.invalidateQueries({queryKey: ['transactions']})
     } catch (error) {
       alert("Erro ao excluir transação.");
     }
   }
+  
   const memoizedTransactionsColumns = useMemo(
     () => transactionsColumns(handleDeleteTransaction),
     []
   );
+  
   const total_entry = useMemo(() => {
     return transactions
       .filter((transaction: any) => transaction.status === "Pago")
@@ -64,6 +61,7 @@ export default function TransactionsContent() {
       .filter((transaction: any) => transaction.status === "Pendente")
       .reduce((acc: number, transaction: any) => acc + transaction.valor, 0);
   }, [transactions]);
+  
   const money_out = 0;
   const balance = total_entry - money_out;
 
@@ -87,6 +85,11 @@ export default function TransactionsContent() {
     columns: memoizedTransactionsColumns,
     getCoreRowModel: getCoreRowModel(),
   });
+
+  
+  if (isLoading) {
+    return <div>Carregando...</div>;
+  }
 
   return (
     <div className=" grid grid-cols-1 px-4 max-w-[1920px]  md:flex flex-col text-white">

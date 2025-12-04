@@ -1,22 +1,47 @@
+'use client'
+import { TransactionsService } from "@/services/transactions.service";
+import { formatMoney } from "@/utils/formatMoney";
+import { useQuery } from "@tanstack/react-query";
 import {
   BanknoteArrowDownIcon,
   BanknoteArrowUpIcon,
+  CircleAlertIcon,
   CircleDollarSignIcon,
 } from "lucide-react";
+import { useMemo } from "react";
 import Card from "../Shadcn/Card";
 import { ChartLineLinear } from "../Shadcn/ChartLineLinear";
 
 
 export default function DashboardContent() {
+  const service = new TransactionsService()
+  const { data: transactions = [], isLoading } = useQuery({
+    queryKey: ["transactions"],
+    queryFn: () => service.getAllTransactions(),
+  });
+
+   const total_entry = useMemo(() => {
+      return transactions
+        .filter((transaction: any) => transaction.status === "Pago")
+        .reduce((acc: number, transaction: any) => acc + transaction.valor, 0);
+    }, [transactions]);
+  
+    const total_pending = useMemo(() => {
+      return transactions
+        .filter((transaction: any) => transaction.status === "Pendente")
+        .reduce((acc: number, transaction: any) => acc + transaction.valor, 0);
+    }, [transactions]);
+    
+    const money_out = 0;
+    const balance = total_entry - money_out;
+
   const chartConfig = {
     product_value: {
       label: "Dinheiro",
       color: "#6268DF",
     },
   };
-  const cash_inflow = "13.075,00";
-  const money_outflow = "130,75";
-  const balance = "12.944,25";
+
   
   const chartData = [
     { month: "Junho", product_value: 18000 },
@@ -37,21 +62,27 @@ export default function DashboardContent() {
           <Card
             title="Entrada"
             icon={BanknoteArrowUpIcon}
-            value={`R$  ${cash_inflow}`}
+            value={`${formatMoney(total_entry)}`}
             width={50}
           />
           <Card
             title="Saída"
             icon={BanknoteArrowDownIcon}
-            value={`R$ ${money_outflow}`}
+            value={`${formatMoney(money_out)}`}
             width={50}
           />
           <Card
             title="Saldo"
             icon={CircleDollarSignIcon}
-            value={`R$ ${balance}`}
+            value={`${formatMoney(balance)}`}
             width={50}
           />
+           <Card
+          title="Pendente"
+          icon={CircleAlertIcon}
+          value={`${formatMoney(total_pending)} `}
+          width={50}
+        />
         </div>
       </div>
       <div className="mt-10">

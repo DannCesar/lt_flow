@@ -7,9 +7,11 @@ import {
 import { useState } from "react";
 import { TransactionsService } from "@/services/transactions.service";
 import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 
 export function useRegisterForm() {
   const [loading, setLoading] = useState(false);
+  const query_client = useQueryClient()
 
   const registerForm = useForm<RegisterTransactionSchema>({
     resolver: zodResolver(registerTransactionSchema),
@@ -32,6 +34,7 @@ export function useRegisterForm() {
       });
       toast.success("Transação registrada com sucesso!");
       registerForm.reset();
+      query_client.invalidateQueries({queryKey: ['transactions']})
     } catch (error) {
       toast.error(
         "Erro ao registrar transação,tente novamente, se persistir, constate o suporte."
