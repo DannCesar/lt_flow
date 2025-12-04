@@ -91,7 +91,7 @@ export default function TransactionsContent() {
 
   
   if (isLoading) {
-    return <div>Carregando...</div>;
+    return <div className="text-white">Carregando...</div>;
   }
 
   return (

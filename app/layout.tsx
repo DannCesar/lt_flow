@@ -3,7 +3,8 @@ import { Goudy_Bookletter_1911, Ubuntu } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/Header";
 import { Providers } from "./providers";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "sonner";
+
 
 const ubuntu = Ubuntu({
   variable: "--font-ubuntu",
