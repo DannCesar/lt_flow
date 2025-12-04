@@ -19,6 +19,7 @@ import Card from "../Shadcn/Card";
 import { DataTable } from "../Shadcn/DataTable";
 import DialogModal from "../Shadcn/DialogModal";
 import PopoverComponent from "../Shadcn/Popover";
+import { toast } from "sonner";
 
 const service = new TransactionsService();
 
@@ -28,7 +29,8 @@ export default function TransactionsContent() {
   const [statusFilter, setStatusFilter] =
     useState<filterTransacitions>("Todos");
   const query_client = useQueryClient()
-  const { registerForm, submit } = useRegisterForm();
+  const { registerForm, submit } = useRegisterForm({onSuccess: () => setModalOpen(false)});
+  const [modalOpen,setModalOpen] = useState(false)
 
   const { data: transactions = [], isLoading } = useQuery({
     queryKey: ["transactions"],
@@ -40,8 +42,9 @@ export default function TransactionsContent() {
     try {
       await service.deleteTransaction(id);
       query_client.invalidateQueries({queryKey: ['transactions']})
+      toast.success("Transação excluída com sucesso!")
     } catch (error) {
-      alert("Erro ao excluir transação.");
+      alert("Erro ao excluir transação,tente novamente,se persistir,constate o suporte.");
     }
   }
   
@@ -158,7 +161,9 @@ export default function TransactionsContent() {
           cancel_text="Cancelar"
           submit_text="Registrar"
           onSubmit={registerForm.handleSubmit(submit)}
-          onCancel={() => registerForm.reset()}
+          onCancel={() => {registerForm.reset(); setModalOpen(false)}}
+          open={modalOpen}
+          onOpenChange={setModalOpen}
         >
           <RegisterTransactionForm registerForm={registerForm} />
         </DialogModal>

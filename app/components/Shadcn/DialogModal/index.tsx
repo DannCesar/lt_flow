@@ -21,6 +21,8 @@ interface IDialogComponent {
   description: string;
   cancel_text: string;
   submit_text: string;
+  open?: boolean;
+  onOpenChange?: (open:boolean) => void;
 }
 
 export default function DialogModal({
@@ -32,9 +34,11 @@ export default function DialogModal({
   submit_text,
   onCancel,
   onSubmit,
+  open,
+  onOpenChange
 }: IDialogComponent) {
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
         <ButtonComponent
           className="border-[#2B2C42] bg-[#262332] hover:bg-[#2B2C42]"
@@ -54,7 +58,11 @@ export default function DialogModal({
 
         <DialogFooter>
           <DialogClose asChild>
-            <ButtonComponent onClick={onCancel}>{cancel_text}</ButtonComponent>
+            <ButtonComponent type="button" variant="outline" onClick={() => {
+              onCancel;
+              if(onOpenChange) onOpenChange(false)
+              
+            }}>{cancel_text}</ButtonComponent>
           </DialogClose>
           <ButtonComponent type="submit" onClick={onSubmit}>
             {submit_text}
