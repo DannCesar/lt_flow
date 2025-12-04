@@ -36,7 +36,7 @@ export function DataTable<TData>({
               <TableRow className="border-[#2B2C42]" key={headerGroup.id}>
                 {headerGroup?.headers?.map((header) => {
                   return (
-                    <TableHead className="border-red-600" key={header.id}>
+                    <TableHead className="text-white" key={header.id}>
                       {header.isPlaceholder
                         ? null
                         : flexRender(

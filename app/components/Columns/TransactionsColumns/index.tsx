@@ -49,7 +49,11 @@ function ActionsCell({ transaction, onDelete }: {
     },
   });
 
-  const handleEditClick = () => {
+  const handleEditClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    e.nativeEvent.stopImmediatePropagation();
+    
     editForm.reset({
       cliente: transaction.cliente,
       status: transaction.status,
@@ -59,23 +63,51 @@ function ActionsCell({ transaction, onDelete }: {
     setEditModalOpen(true);
   };
 
+  const handleDeleteClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    e.nativeEvent.stopImmediatePropagation();
+    
+    onDelete && onDelete(transaction.id);
+  };
+
+  const handleTriggerClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+  };
+
   return (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="h-8 w-8 p-0">
+          <Button 
+            variant="ghost" 
+            className="h-8 w-8 p-0"
+            onClick={handleTriggerClick}
+          >
             <MoreHorizontal className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent 
+          align="end"
+          onClick={(e) => {
+            e.stopPropagation();
+            e.preventDefault();
+          }}
+        >
           <DropdownMenuLabel>Ações</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={handleEditClick}>
+
+          <DropdownMenuItem 
+            onClick={handleEditClick}
+            onSelect={(e) => e.preventDefault()}
+          >
             Editar
           </DropdownMenuItem>
           <DropdownMenuItem 
             className="text-red-500" 
-            onClick={() => onDelete && onDelete(transaction.id)}
+            onClick={handleDeleteClick}
+            onSelect={(e) => e.preventDefault()}
           >
             Excluir
           </DropdownMenuItem>
@@ -170,7 +202,11 @@ export const transactionsColumns = (onDelete?: (id: string) => void): ColumnDef<
     id: "actions",
     cell: ({ row }) => {
       const transaction = row.original;
-      return <ActionsCell transaction={transaction} onDelete={onDelete} />;
+      return (
+        <div onClick={(e) => e.stopPropagation()}>
+          <ActionsCell transaction={transaction} onDelete={onDelete} />
+        </div>
+      );
     },
   },
 ];
