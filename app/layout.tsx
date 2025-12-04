@@ -5,7 +5,6 @@ import { Header } from "./components/Header";
 import { Providers } from "./providers";
 import { Toaster } from "sonner";
 
-
 const ubuntu = Ubuntu({
   variable: "--font-ubuntu",
   subsets: ["latin"],
@@ -32,8 +31,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${ubuntu.variable} ${goudy.variable} antialiased`}>
         <Providers>
-          <Header />
-
           {children}
           <Toaster position="top-center" />
         </Providers>
