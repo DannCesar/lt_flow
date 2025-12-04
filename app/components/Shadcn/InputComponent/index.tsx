@@ -1,10 +1,8 @@
 
 import { LucideIcon } from "lucide-react";
-import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 
 interface IInputComponent {
-  label: string;
   icon?: LucideIcon;
   value?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -14,7 +12,6 @@ interface IInputComponent {
 }
 
 export default function InputComponent({
-  label,
   icon: Icon,
   value,
   onChange,
@@ -24,8 +21,6 @@ export default function InputComponent({
 }: IInputComponent) {
   return (
     <div className="flex flex-col gap-2 ">
-      <Label htmlFor={name}>{label}</Label>
-
       <div className="relative">
         {Icon && (
           <Icon className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4" />

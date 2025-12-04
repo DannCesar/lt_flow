@@ -1,7 +1,6 @@
 //@disable React Compiler
 "use client";
 
-import { TransactionsService } from "@/services/transactions.service";
 import { formatMoney } from "@/utils/formatMoney";
 import { getCoreRowModel, useReactTable } from "@tanstack/react-table";
 import {
@@ -14,8 +13,9 @@ import {
 import { useEffect, useMemo, useState } from "react";
 import { transactionsColumns } from "../Columns/TransactionsColumns";
 import Card from "../Shadcn/Card";
-
-import RegisterForm from "../RegisterFrom";
+import { useRegisterForm } from "@/app/hooks/useRegisterForm";
+import { TransactionsService } from "@/services/transactions.service";
+import RegisterTransactionForm from "../RegisterTransactionForm";
 import { DataTable } from "../Shadcn/DataTable";
 import DialogModal from "../Shadcn/DialogModal";
 import PopoverComponent from "../Shadcn/Popover";
@@ -29,6 +29,7 @@ export default function TransactionsContent() {
   const [statusFilter, setStatusFilter] =
     useState<filterTransacitions>("Todos");
   const memoizedTransactionsColumns = useMemo(() => transactionsColumns, []);
+  const { submit } = useRegisterForm();
 
   useEffect(() => {
     async function loadData() {
@@ -41,20 +42,28 @@ export default function TransactionsContent() {
   const total_entry = useMemo(() => {
     return transactions
       .filter((transaction: any) => transaction.status === "Pago")
-      .reduce((acc: number, transaction: any) => acc + transaction.value, 0);
+      .reduce((acc: number, transaction: any) => acc + transaction.valor, 0);
   }, [transactions]);
 
   const total_pending = useMemo(() => {
     return transactions
       .filter((transaction: any) => transaction.status === "Pendente")
-      .reduce((acc: number, transaction: any) => acc + transaction.value, 0);
+      .reduce((acc: number, transaction: any) => acc + transaction.valor, 0);
   }, [transactions]);
   const money_out = 0;
   const balance = total_entry - money_out;
 
   const filteredTransactions = useMemo(() => {
-    if (statusFilter === "Todos") return transactions;
-    return transactions.filter(
+    const sorted = [...transactions].sort((a: any, b: any) => {
+      return (
+        new Date(b.data_transacao).getTime() -
+        new Date(a.data_transacao).getTime()
+      );
+    });
+
+    if (statusFilter === "Todos") return sorted;
+
+    return sorted.filter(
       (transaction: any) => transaction.status === statusFilter
     );
   }, [transactions, statusFilter]);
@@ -131,8 +140,9 @@ export default function TransactionsContent() {
           description="Preencha os campos para registrar uma nova transação."
           cancel_text="Cancelar"
           submit_text="Registrar"
+          onSubmit={submit}
         >
-          <RegisterForm />
+          <RegisterTransactionForm />
         </DialogModal>
       </div>
       <div className="text-white overflow-y-auto md:w-full max-h-96 mt-5">

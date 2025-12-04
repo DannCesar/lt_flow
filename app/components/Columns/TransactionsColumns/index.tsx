@@ -25,7 +25,7 @@ export interface ITransaction {
   data_transacao: string;
   status: TransactionStatus;
   metodo_pagamento: PaymentMethod;
-  value: number;
+  valor : number;
 }
 
 export const transactionsColumns: ColumnDef<ITransaction>[] = [
@@ -86,7 +86,7 @@ export const transactionsColumns: ColumnDef<ITransaction>[] = [
     accessorKey: "value",
     header: () => <div className="text-right">Valor</div>,
     cell: ({ row }) => {
-      const transaction_value = row.original.value;
+      const transaction_value = row.original.valor;
       const formatted_value = transaction_value.toLocaleString("pt-BR", {
         style: "currency",
         currency: "BRL",
