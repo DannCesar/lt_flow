@@ -32,7 +32,7 @@ export default function SelectComponent({
       <Label>{label}</Label>
 
       <Select value={value} onValueChange={onValueChange}>
-        <SelectTrigger className="w-full h-8 bg-[#1A1724] border-[#2B2C42]">
+        <SelectTrigger className="w-full h-8 bg-[#1A1724] border-[#2B2C42] px-3 py-1">
           {
             placeholder ? (
               <SelectValue placeholder={placeholder} />

@@ -38,7 +38,7 @@ export default function LoginPage() {
 
     return (
     <div className="min-h-screen bg-[#1B192B] flex flex-col items-center justify-center px-6 text-white">
-      <div className="flex items-center gap-3 mb-10">
+      <div className="flex items-center gap-3 mb-5">
         <ChartNoAxesCombinedIcon width={38} height={34} />
         <span className="goudy text-3xl">LTFlow</span>
       </div>

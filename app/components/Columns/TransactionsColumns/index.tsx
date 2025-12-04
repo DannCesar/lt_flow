@@ -70,7 +70,6 @@ function ActionsCell({ transaction, onDelete }: {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Ações</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Ver detalhes</DropdownMenuItem>
           <DropdownMenuItem onClick={handleEditClick}>
             Editar
           </DropdownMenuItem>

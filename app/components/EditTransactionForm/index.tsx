@@ -41,7 +41,7 @@ export default function EditTransactionForm({ editForm }: EditTransactionFormPro
 
   return (
     <Form {...editForm}>
-      <form className="grid md:grid-cols-2 gap-4">
+      <form className=" grid items-center md:grid-cols-2 gap-4">
         <FormInput
           control={editForm.control}
           name="cliente"

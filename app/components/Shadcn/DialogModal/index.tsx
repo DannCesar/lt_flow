@@ -41,8 +41,8 @@ export default function DialogModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
         <ButtonComponent
-          className="border-[#2B2C42] bg-[#262332] hover:bg-[#2B2C42]"
-          variant="outline"
+          className="border-[#2B2C42] bg-[#6563FF] hover:bg-[#5453e6]"
+          
         >
           {dialog}
         </ButtonComponent>
@@ -64,7 +64,7 @@ export default function DialogModal({
               
             }}>{cancel_text}</ButtonComponent>
           </DialogClose>
-          <ButtonComponent className="text-[#262332]" type="submit" variant="outline" onClick={onSubmit}>
+          <ButtonComponent className="border-[#2B2C42] bg-[#6563FF] hover:bg-[#5453e6]" type="submit"  onClick={onSubmit}>
             {submit_text}
           </ButtonComponent>
         </DialogFooter>

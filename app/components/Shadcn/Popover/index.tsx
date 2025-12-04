@@ -24,7 +24,7 @@ export default function PopoverComponent({
     <div ref={popupContainer}>
       <Popover>
         <PopoverTrigger asChild>
-          <ButtonComponent variant="primary" icon={Icon}>
+          <ButtonComponent className="border-[#2B2C42] bg-[#6563FF] hover:bg-[#5453e6]"  icon={Icon}>
             {textButton}
           </ButtonComponent>
         </PopoverTrigger>

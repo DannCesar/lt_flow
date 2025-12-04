@@ -21,6 +21,7 @@ pnpm dev
 bun dev
  
 ```
+Login credentials: email === "lt@app.com" && password === "@LTFlow"
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
