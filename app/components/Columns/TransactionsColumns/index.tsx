@@ -83,7 +83,8 @@ function ActionsCell({ transaction, onDelete }: {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <DialogModal  
+     <div className="hidden">
+       <DialogModal  
         dialog=""
         title="Editar transação"
         description="Edite os campos da transação selecionada."
@@ -101,6 +102,7 @@ function ActionsCell({ transaction, onDelete }: {
       >
         <EditTransactionForm editForm={editForm} />
       </DialogModal>
+     </div>
     </>
   );
 }

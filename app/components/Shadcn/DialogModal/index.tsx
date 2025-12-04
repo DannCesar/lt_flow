@@ -56,15 +56,15 @@ export default function DialogModal({
 
         {children}
 
-        <DialogFooter>
+        <DialogFooter className="gap-3">
           <DialogClose asChild>
-            <ButtonComponent type="button" variant="outline" onClick={() => {
+            <ButtonComponent  type="button" variant="default" onClick={() => {
               onCancel;
               if(onOpenChange) onOpenChange(false)
               
             }}>{cancel_text}</ButtonComponent>
           </DialogClose>
-          <ButtonComponent type="submit" onClick={onSubmit}>
+          <ButtonComponent className="text-[#262332]" type="submit" variant="outline" onClick={onSubmit}>
             {submit_text}
           </ButtonComponent>
         </DialogFooter>
