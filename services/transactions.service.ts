@@ -9,4 +9,8 @@ export class TransactionsService {
     const { data } = await api.post("/transactions", transaction);
     return data;
   }
+  async deleteTransaction(id:string){
+    const {data} = await api.delete(`transactions/${id}`)
+    return data
+  }
 }

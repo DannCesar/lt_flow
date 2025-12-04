@@ -28,7 +28,7 @@ export interface ITransaction {
   valor : number;
 }
 
-export const transactionsColumns: ColumnDef<ITransaction>[] = [
+export const transactionsColumns = (onDelete?:(id:number) => void) : ColumnDef<ITransaction>[] => [
   {
     accessorKey: "cliente",
     header: "Cliente",
@@ -121,7 +121,7 @@ export const transactionsColumns: ColumnDef<ITransaction>[] = [
             <DropdownMenuSeparator />
             <DropdownMenuItem>Ver detalhes</DropdownMenuItem>
             <DropdownMenuItem>Editar</DropdownMenuItem>
-            <DropdownMenuItem className="text-red-500">
+            <DropdownMenuItem className="text-red-500" onClick={()=>onDelete && onDelete(row.original.id)}>
               Excluir
             </DropdownMenuItem>
           </DropdownMenuContent>

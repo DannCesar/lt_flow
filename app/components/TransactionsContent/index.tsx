@@ -28,7 +28,8 @@ export default function TransactionsContent() {
   const [transactions, setTransactions] = useState([]);
   const [statusFilter, setStatusFilter] =
     useState<filterTransacitions>("Todos");
-  const memoizedTransactionsColumns = useMemo(() => transactionsColumns, []);
+
+  
   const { submit } = useRegisterForm();
 
   useEffect(() => {
@@ -38,7 +39,17 @@ export default function TransactionsContent() {
     }
     loadData();
   }, []);
-
+    async function handleDeleteTransaction(id:number | string){
+   
+    try {
+      await service.deleteTransaction(id)
+      setTransactions(transactions.filter(transaction => transaction.id !== id))
+      alert("Transação excluida com sucesso")
+    } catch (error) {
+      alert("Erro ao excluir transação.")
+    }
+  }
+   const memoizedTransactionsColumns = useMemo(() => transactionsColumns(handleDeleteTransaction), []);
   const total_entry = useMemo(() => {
     return transactions
       .filter((transaction: any) => transaction.status === "Pago")
@@ -73,6 +84,7 @@ export default function TransactionsContent() {
     columns: memoizedTransactionsColumns,
     getCoreRowModel: getCoreRowModel(),
   });
+
   console.log(total_entry);
   return (
     <div className=" grid grid-cols-1 px-4 max-w-[1920px]  md:flex flex-col text-white">
