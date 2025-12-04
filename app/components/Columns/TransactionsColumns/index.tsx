@@ -83,10 +83,11 @@ export const transactionsColumns: ColumnDef<ITransaction>[] = [
   },
 
   {
-    accessorKey: "value",
+    accessorKey: "valor",
     header: () => <div className="text-right">Valor</div>,
     cell: ({ row }) => {
-      const transaction_value = row.original.valor;
+      const transaction_value = row.original.valor ? row.original.valor : "Não informado" ;
+      console.log(transaction_value)
       const formatted_value = transaction_value.toLocaleString("pt-BR", {
         style: "currency",
         currency: "BRL",
